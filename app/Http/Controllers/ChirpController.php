@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\NewUserRegistrationEvent;
 use App\Models\Chirp;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ChirpController extends Controller
@@ -28,7 +30,13 @@ class ChirpController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       $data = $request->validate([
+           'name' =>"required",
+           'email' =>"required|email",
+           'password' =>"required",
+       ]);
+
+       User::create($data);
     }
 
     /**
